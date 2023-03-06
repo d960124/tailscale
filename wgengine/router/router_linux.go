@@ -1306,10 +1306,10 @@ func (r *linuxRouter) addNetfilterBase4() error {
 	if err := r.ipt4.Append("filter", "ts-input", args...); err != nil {
 		return fmt.Errorf("adding %v in v4/filter/ts-input: %w", args, err)
 	}
-	args = []string{"!", "-i", r.tunname, "-s", tsaddr.CGNATRange().String(), "-j", "DROP"}
-	if err := r.ipt4.Append("filter", "ts-input", args...); err != nil {
-		return fmt.Errorf("adding %v in v4/filter/ts-input: %w", args, err)
-	}
+	//args = []string{"!", "-i", r.tunname, "-s", tsaddr.CGNATRange().String(), "-j", "DROP"}
+	//if err := r.ipt4.Append("filter", "ts-input", args...); err != nil {
+	//	return fmt.Errorf("adding %v in v4/filter/ts-input: %w", args, err)
+	//}
 
 	// Forward all traffic from the Tailscale interface, and drop
 	// traffic to the tailscale interface by default. We use packet
@@ -1330,10 +1330,10 @@ func (r *linuxRouter) addNetfilterBase4() error {
 	if err := r.ipt4.Append("filter", "ts-forward", args...); err != nil {
 		return fmt.Errorf("adding %v in v4/filter/ts-forward: %w", args, err)
 	}
-	args = []string{"-o", r.tunname, "-s", tsaddr.CGNATRange().String(), "-j", "DROP"}
-	if err := r.ipt4.Append("filter", "ts-forward", args...); err != nil {
-		return fmt.Errorf("adding %v in v4/filter/ts-forward: %w", args, err)
-	}
+	//args = []string{"-o", r.tunname, "-s", tsaddr.CGNATRange().String(), "-j", "DROP"}
+	//if err := r.ipt4.Append("filter", "ts-forward", args...); err != nil {
+	//	return fmt.Errorf("adding %v in v4/filter/ts-forward: %w", args, err)
+	//}
 	args = []string{"-o", r.tunname, "-j", "ACCEPT"}
 	if err := r.ipt4.Append("filter", "ts-forward", args...); err != nil {
 		return fmt.Errorf("adding %v in v4/filter/ts-forward: %w", args, err)
